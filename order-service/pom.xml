@@ -5,8 +5,10 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>4.0.0</version>        <relativePath/>
-    </parent> <groupId>com.kumar</groupId>
+        <version>4.0.0</version>
+        <relativePath/>
+    </parent>
+    <groupId>com.kumar</groupId>
     <artifactId>order-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>order-service</name>
@@ -62,6 +64,11 @@
             <artifactId>jjwt-impl</artifactId>
             <version>0.12.7</version>
             <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-circuitbreaker-resilience4j</artifactId>
         </dependency>
 
         <dependency>
