@@ -14,6 +14,30 @@ services:
     networks:
       - ecom-network
 
+
+  discovery-server:
+    build: ./discovery-server
+    container_name: discovery-server
+    ports:
+      - "8761:8761"
+    networks:
+      - ecom-network
+
+
+  gateway-service:
+    build: ./gateway-service
+    container_name: gateway-service
+    ports:
+      - "8080:8080"
+    depends_on:
+      - discovery-server
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      JWT_SECRET: ${JWT_SECRET}
+    networks:
+      - ecom-network
+
+
   user-service:
     build: ./user-service
     container_name: user-service
@@ -21,12 +45,14 @@ services:
       - "8081:8081"
     depends_on:
       - mysql
+      - discovery-server
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/user_db
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: root
+      SPRING_PROFILES_ACTIVE: docker
+      JWT_SECRET: ${JWT_SECRET}
     networks:
       - ecom-network
+
+
   product-service:
     build: ./product-service
     container_name: product-service
@@ -34,12 +60,14 @@ services:
       - "8082:8082"
     depends_on:
       - mysql
+      - discovery-server
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/product_db
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: root
+      SPRING_PROFILES_ACTIVE: docker
+      JWT_SECRET: ${JWT_SECRET}
     networks:
       - ecom-network
+
+
   order-service:
     build: ./order-service
     container_name: order-service
@@ -47,14 +75,18 @@ services:
       - "8083:8083"
     depends_on:
       - mysql
+      - discovery-server
+      - product-service
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/order_db
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: root
+      SPRING_PROFILES_ACTIVE: docker
+      JWT_SECRET: ${JWT_SECRET}
     networks:
       - ecom-network
+
+
 volumes:
   mysql-data:
+
 
 networks:
   ecom-network:

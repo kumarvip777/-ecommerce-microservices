@@ -2,12 +2,6 @@ spring:
   application:
     name: order-service
 
-  datasource:
-    url: jdbc:mysql://localhost:3306/order_db
-    username: root
-    password: root
-    driver-class-name: com.mysql.cj.jdbc.Driver
-
   jpa:
     hibernate:
       ddl-auto: update
@@ -34,11 +28,6 @@ logging:
     com.kumar.orderservice: DEBUG
     io.github.resilience4j.retry: DEBUG
     io.github.resilience4j.circuitbreaker: DEBUG
-
-eureka:
-  client:
-    service-url:
-      defaultZone: http://localhost:8761/eureka
 
 resilience4j:
   retry:

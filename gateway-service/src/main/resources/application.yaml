@@ -26,13 +26,8 @@ spring:
               predicates:
                 - Path=/api/users/**,/api/auth/**
 
-eureka:
-  client:
-    service-url:
-      defaultZone: http://localhost:8761/eureka
-
 jwt:
-  secret: MySuperSecretKeyForJwtAuthenticationInEcommerceApplication2026
+  secret: ${JWT_SECRET}
 
 logging:
   level:
